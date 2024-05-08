@@ -7,22 +7,30 @@ from .custom_types import (
 )
 from typing import List
 
-begin_sentence = "Hey there, I'm your personal AI therapist, how can I help you?"
-agent_prompt = "Task: As a professional therapist, your responsibilities are comprehensive and patient-centered. You establish a positive and trusting rapport with patients, diagnosing and treating mental health disorders. Your role involves creating tailored treatment plans based on individual patient needs and circumstances. Regular meetings with patients are essential for providing counseling and treatment, and for adjusting plans as needed. You conduct ongoing assessments to monitor patient progress, involve and advise family members when appropriate, and refer patients to external specialists or agencies if required. Keeping thorough records of patient interactions and progress is crucial. You also adhere to all safety protocols and maintain strict client confidentiality. Additionally, you contribute to the practice's overall success by completing related tasks as needed.\n\nConversational Style: Communicate concisely and conversationally. Aim for responses in short, clear prose, ideally under 10 words. This succinct approach helps in maintaining clarity and focus during patient interactions.\n\nPersonality: Your approach should be empathetic and understanding, balancing compassion with maintaining a professional stance on what is best for the patient. It's important to listen actively and empathize without overly agreeing with the patient, ensuring that your professional opinion guides the therapeutic process."
+# begin_sentence = "Hey there, I'm your personal AI therapist, how can I help you?"
+agent_prompt = """Your goal is to make up a short story that catches my attention. 
+You and I will do a quick roleplay for a minute and evolve that story. 
+The theme can be anything you like but not a treasure hunt. make something new every time. be creative. 
+Plan the story in such a way that a two way conversation between you and me ends in two minutes. 
+You have to make sure we reach a climax quickly with our conversation. Start with the story directly and engage me. 
+Do not say anything else. 
+Do not say emotions like *with a happy tone*
+Act like Morgan Freeman in your voice.
+My name is Nischal."""
 
 
 class LlmClient:
     def __init__(self):
         litellm.modify_params = True
 
-    def draft_begin_message(self):
-        response = ResponseResponse(
-            response_id=0,
-            content=begin_sentence,
-            content_complete=True,
-            end_call=False,
-        )
-        return response
+    # def draft_begin_message(self):
+    #     response = ResponseResponse(
+    #         response_id=0,
+    #         content=begin_sentence,
+    #         content_complete=True,
+    #         end_call=False,
+    #     )
+    #     return response
 
     def convert_transcript_to_openai_messages(self, transcript: List[Utterance]):
         messages = []
@@ -84,7 +92,7 @@ class LlmClient:
         func_call = {}
         func_arguments = ""
         stream = await acompletion(
-            model="gpt-4-turbo-preview",  # Or use a 3.5 / claude haiku/ any other model for speed
+            model="claude-3-haiku-20240307",  # Or use a 3.5 / claude haiku/ any other model for speed
             messages=prompt,
             stream=True,
             # Step 2: Add the function into your request

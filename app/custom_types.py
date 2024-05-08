@@ -59,3 +59,6 @@ class ResponseResponse(BaseModel):
 
 
 CustomLlmResponse = Union[ConfigResponse | PingPongResponse | ResponseResponse]
+
+class ScheduleCallRequest(BaseModel):
+    call_time: str  # Expected format: 'YYYY-MM-DD HH:MM'
