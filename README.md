@@ -21,7 +21,7 @@ ngrok http 8080
 4. Start the websocket server
 
 ```bash
-uvicorn app.server:app --reload --port=8080
+python3 -m uvicorn app.server:app --reload --port=8080
 ```
 
 You should see a fowarding address like
