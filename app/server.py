@@ -18,6 +18,7 @@ from .custom_types import (
 from .llm_with_func_calling import LlmClient  # or use .llm
 from .call import make_call
 from .converter import convert_ist_to_utc
+import pytz
 
 load_dotenv(override=True)
 app = FastAPI()
@@ -145,7 +146,7 @@ async def websocket_handler(websocket: WebSocket, call_id: str):
 async def schedule_call(request: ScheduleCallRequest):
     call_time = datetime.strptime(request.call_time, '%Y-%m-%d %H:%M')
     call_time = convert_ist_to_utc(call_time)
-    now = datetime.now()
+    now = datetime.now(pytz.utc)
 
     if call_time <= now:
         return JSONResponse(status_code=400, content={"message": "Call time must be in the future."})
