@@ -86,9 +86,9 @@ async def websocket_handler(websocket: WebSocket, call_id: str):
         await websocket.send_json(config.__dict__)
 
         # Send first message to signal ready of server
-        response_id = 0
-        # first_event = llm_client.draft_begin_message()
-        # await websocket.send_json(first_event.__dict__)
+        response_id = 1
+        first_event = llm_client.draft_begin_message()
+        await websocket.send_json(first_event.__dict__)
 
         async def handle_message(request_json):
             nonlocal response_id
